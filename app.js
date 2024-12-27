@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 app.use(express.static('public'));
 
 app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Origin', process.env.CLIENT_URL);
     res.setHeader(
         'Access-Control-Allow-Methods',
         'GET, POST, PUT, DELETE, OPTIONS'
@@ -172,8 +172,6 @@ app.delete('/events/:id', async (req, res) => {
         res.json({ message: 'Event deleted' });
     }, 1000);
 });
-
-console.log('process.env: ', process.env.PORT);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

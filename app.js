@@ -1,12 +1,10 @@
 import fs from 'node:fs/promises';
-
 import bodyParser from 'body-parser';
 import express from 'express';
-
 import dotenv from 'dotenv';
 
-const app = express();
 dotenv.config();
+const app = express();
 
 app.use(bodyParser.json());
 app.use(express.static('public'));
@@ -49,32 +47,6 @@ app.get('/events', async (req, res) => {
             location: event.location,
         })),
     });
-});
-
-app.get('/events/images', async (req, res) => {
-    const imagesFileContent = await fs.readFile('./data/images.json');
-    const images = JSON.parse(imagesFileContent);
-
-    res.json({ images });
-});
-
-app.get('/events/:id', async (req, res) => {
-    const { id } = req.params;
-
-    const eventsFileContent = await fs.readFile('./data/events.json');
-    const events = JSON.parse(eventsFileContent);
-
-    const event = events.find((event) => event.id === id);
-
-    if (!event) {
-        return res
-            .status(404)
-            .json({ message: `For the id ${id}, no event could be found.` });
-    }
-
-    setTimeout(() => {
-        res.json({ event });
-    }, 1000);
 });
 
 app.post('/events', async (req, res) => {
@@ -173,7 +145,4 @@ app.delete('/events/:id', async (req, res) => {
     }, 1000);
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-});
+export default app;

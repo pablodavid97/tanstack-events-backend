@@ -42,3 +42,36 @@ export const queryEntities = (tableName, query) => {
         );
     });
 };
+
+export const getEntityById = (tableName, partitionKey, rowKey) => {
+    return new Promise((resolve, reject) => {
+        tableService.retrieveEntity(
+            tableName,
+            partitionKey,
+            rowKey,
+            (error, result, response) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(result);
+                }
+            }
+        );
+    });
+};
+
+export const updateEntity = (tableName, entity) => {
+    return new Promise((resolve, reject) => {
+        tableService.replaceEntity(
+            tableName,
+            entity,
+            (error, result, response) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(result);
+                }
+            }
+        );
+    });
+};

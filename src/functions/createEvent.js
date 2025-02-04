@@ -4,6 +4,7 @@ import { insertEntity } from '../services/tableService.js';
 app.http('createEvent', {
     methods: ['POST'],
     authLevel: 'anonymous',
+    route: 'events',
     handler: async (req, context) => {
         context.log('Received POST request to create a new event.');
 

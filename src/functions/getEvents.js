@@ -5,6 +5,7 @@ import { queryEntities } from '../services/tableService.js';
 app.http('getEvents', {
     methods: ['GET'],
     authLevel: 'anonymous',
+    route: 'events',
     handler: async (request, context) => {
         context.log('Received GET request for events.');
 
